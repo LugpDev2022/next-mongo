@@ -47,10 +47,33 @@ const FormPage = ({ params: { id } }) => {
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      await fetch(`/api/tasks/${id}`, {
+        method: 'DELETE',
+      });
+
+      router.push('/');
+      router.refresh();
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <div className='h-[calc(100vh-7rem)] flex justify-center items-center'>
       <form onSubmit={handleSubmit}>
-        <h1 className='font-bold text-3xl'>Update Task</h1>
+        <header className='flex justify-between'>
+          <h1 className='font-bold text-3xl'>Update Task</h1>
+
+          <button
+            onClick={handleDelete}
+            className='bg-red-600 hover:bg-red-700 text-white font-bold px-4 py-2 rounded-lg'
+            type='button'
+          >
+            Delete
+          </button>
+        </header>
 
         <input
           type='text'
